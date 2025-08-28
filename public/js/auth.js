@@ -1,7 +1,7 @@
 // إعداد عميل Supabase
 const supabase = window.supabase.createClient(
     'https://qjsvgpvbtrcnbhcjdcci.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1penZteGdpeXJuZm5yeGpocXBlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExMjQxOTgsImV4cCI6MjA2NjcwMDE5OH0.v3r0rry9mhVo3-n64yTG0M2rToHyn_IVY6RNgkdY-h4'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqc3ZncHZidHJjbmJoY2pkY2NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyMzEzNzIsImV4cCI6MjA3MTgwNzM3Mn0.mTqqkCVyfgF8VlPznXRuatLyHRVFx6Ibi0P7qHgSY4o'
 );
 
 // حالة المصادقة العامة
