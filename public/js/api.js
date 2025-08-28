@@ -133,7 +133,7 @@ async function getUploadUrl(applicationId, file) {
 
         // استدعاء وظيفة الحافة للحصول على رابط الرفع
         const response = await fetch(
-            `https://mizvmxgiyrnfnrxjhqpe.supabase.co/functions/v1/get-upload-url`,
+            `https://qjsvgpvbtrcnbhcjdcci.supabase.co/functions/v1/get-upload-url`,
             {
                 method: 'POST',
                 headers: {
@@ -287,7 +287,7 @@ async function getDownloadUrl(fileKey) {
         }
 
         const response = await fetch(
-            `https://mizvmxgiyrnfnrxjhqpe.supabase.co/functions/v1/get-download-url`,
+            `https://qjsvgpvbtrcnbhcjdcci.supabase.co/functions/v1/get-download-url`,
             {
                 method: 'POST',
                 headers: {

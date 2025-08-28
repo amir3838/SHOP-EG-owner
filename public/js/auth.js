@@ -1,6 +1,6 @@
 // إعداد عميل Supabase
 const supabase = window.supabase.createClient(
-    'https://mizvmxgiyrnfnrxjhqpe.supabase.co',
+    'https://qjsvgpvbtrcnbhcjdcci.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1penZteGdpeXJuZm5yeGpocXBlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExMjQxOTgsImV4cCI6MjA2NjcwMDE5OH0.v3r0rry9mhVo3-n64yTG0M2rToHyn_IVY6RNgkdY-h4'
 );
 
