@@ -45,5 +45,8 @@
   "bugs": {
     "url": "https://github.com/luxbyte/merchant-portal/issues"
   },
-  "homepage": "https://luxbyte.vercel.app"
+  "homepage": "https://luxbyte.vercel.app",
+  "dependencies": {
+    "@vercel/speed-insights": "^1.2.0"
+  }
 }
