@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحقق من البريد الإلكتروني - Luxbyte LLC</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="verify-container">
+        <div class="verify-card">
+            <div class="verify-header">
+                <svg width="80" height="80" viewBox="0 0 200 200" class="logo">
+                    <polygon points="20,40 60,40 80,60 40,60" fill="#e53935"/>
+                    <polygon points="60,40 120,40 120,100 100,80 80,80 80,60 60,60" fill="#e53935"/>
+                    <polygon points="40,60 80,60 80,80 100,80 120,100 120,160 60,160 60,140 40,120" fill="#333"/>
+                    <polygon points="120,100 160,100 180,120 180,160 120,160" fill="#ffc107"/>
+                </svg>
+                <h1>Luxbyte LLC</h1>
+                <p>هنكبر مع بعض</p>
+            </div>
+
+            <div class="verify-content">
+                <div id="loading-state" class="verify-state">
+                    <div class="spinner"></div>
+                    <h2>جارٍ التحقق من بريدك الإلكتروني...</h2>
+                    <p>يرجى الانتظار بينما نقوم بتأكيد تسجيل دخولك</p>
+                </div>
+
+                <div id="success-state" class="verify-state" style="display: none;">
+                    <div class="success-icon">
+                        <svg width="64" height="64" fill="#4caf50">
+                            <path d="M20 32L30 42L52 20"/>
+                        </svg>
+                    </div>
+                    <h2>تم التحقق بنجاح!</h2>
+                    <p>مرحباً بك، سيتم إعادة توجيهك إلى الصفحة الرئيسية خلال لحظات</p>
+                    <div class="redirect-countdown">
+                        <span>إعادة التوجيه خلال: </span>
+                        <span id="countdown">3</span>
+                        <span> ثوان</span>
+                    </div>
+                </div>
+
+                <div id="error-state" class="verify-state" style="display: none;">
+                    <div class="error-icon">
+                        <svg width="64" height="64" fill="#f44336">
+                            <path d="M20 20L52 52M20 52L52 20"/>
+                        </svg>
+                    </div>
+                    <h2>فشل في التحقق</h2>
+                    <p id="error-message">حدث خطأ أثناء التحقق من بريدك الإلكتروني</p>
+                    <div class="verify-actions">
+                        <a href="/" class="btn-primary">العودة إلى الصفحة الرئيسية</a>
+                        <button id="retry-btn" class="btn-secondary">محاولة مرة أخرى</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- إضافة الستايلات الخاصة بصفحة التحقق -->
+    <style>
+        .verify-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            padding: 20px;
+        }
+
+        .verify-card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .verify-header {
+            margin-bottom: 2rem;
+        }
+
+        .verify-header .logo {
+            margin-bottom: 1rem;
+        }
+
+        .verify-header h1 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .verify-header p {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .verify-state {
+            padding: 1rem 0;
+        }
+
+        .verify-state h2 {
+            color: var(--text-primary);
+            margin: 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .verify-state p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-icon svg {
+            stroke: currentColor;
+            stroke-width: 3;
+            fill: none;
+            margin-bottom: 1rem;
+        }
+
+        .error-icon svg {
+            stroke: currentColor;
+            stroke-width: 3;
+            fill: none;
+            margin-bottom: 1rem;
+        }
+
+        .redirect-countdown {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .redirect-countdown #countdown {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .verify-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .verify-actions .btn-primary,
+        .verify-actions .btn-secondary {
+            padding: 12px 24px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .verify-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .verify-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .verify-state h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+
+    <!-- منطقة الإشعارات -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="/js/auth.js"></script>
+    <script>
+        // تنفيذ عملية التحقق عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loadingState = document.getElementById('loading-state');
+            const successState = document.getElementById('success-state');
+            const errorState = document.getElementById('error-state');
+            const errorMessage = document.getElementById('error-message');
+            const retryBtn = document.getElementById('retry-btn');
+            const countdownElement = document.getElementById('countdown');
+
+            // دالة إعادة المحاولة
+            async function attemptVerification() {
+                // إظهار حالة التحميل
+                loadingState.style.display = 'block';
+                successState.style.display = 'none';
+                errorState.style.display = 'none';
+
+                try {
+                    const result = await window.authUtils.finishMagicLink();
+                    
+                    if (result.success) {
+                        // إظهار حالة النجاح
+                        loadingState.style.display = 'none';
+                        successState.style.display = 'block';
+                        
+                        // بدء العد التنازلي لإعادة التوجيه
+                        let countdown = 3;
+                        const countdownTimer = setInterval(() => {
+                            countdown--;
+                            countdownElement.textContent = countdown;
+                            
+                            if (countdown <= 0) {
+                                clearInterval(countdownTimer);
+                                window.location.href = '/';
+                            }
+                        }, 1000);
+                        
+                    } else {
+                        throw result.error;
+                    }
+                } catch (error) {
+                    // إظهار حالة الخطأ
+                    loadingState.style.display = 'none';
+                    errorState.style.display = 'block';
+                    errorMessage.textContent = error.message || 'حدث خطأ غير متوقع';
+                }
+            }
+
+            // بدء عملية التحقق
+            await attemptVerification();
+
+            // إعداد زر إعادة المحاولة
+            if (retryBtn) {
+                retryBtn.addEventListener('click', attemptVerification);
+            }
+        });
+    </script>
+</body>
+</html>

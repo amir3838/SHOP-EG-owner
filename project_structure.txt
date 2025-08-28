@@ -1,0 +1,29 @@
+luxbyte-merchant-portal/
+├── public/
+│   ├── index.html
+│   ├── admin.html
+│   ├── verify.html
+│   ├── success.html
+│   ├── css/
+│   │   └── styles.css
+│   ├── js/
+│   │   ├── app.js
+│   │   ├── auth.js
+│   │   ├── admin.js
+│   │   └── api.js
+│   └── assets/
+│       └── logo.svg
+├── supabase/
+│   ├── functions/
+│   │   ├── get-upload-url/
+│   │   │   └── index.ts
+│   │   └── get-download-url/
+│   │       └── index.ts
+│   ├── migrations/
+│   │   └── 001_schema.sql
+│   └── policies/
+│       └── rls.sql
+├── .env.example
+├── vercel.json
+├── README.md
+└── package.json

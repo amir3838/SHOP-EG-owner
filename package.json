@@ -1,0 +1,49 @@
+{
+  "name": "luxbyte-merchant-portal",
+  "version": "1.0.0",
+  "description": "بوابة تسجيل التجار لشركة Luxbyte LLC - منصة SHOPEG",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve public -p 3000",
+    "build": "echo 'Static site - no build required'",
+    "preview": "npx serve public -p 4173",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:reset": "supabase db reset",
+    "supabase:migrate": "supabase db push",
+    "supabase:functions:serve": "supabase functions serve",
+    "supabase:functions:deploy": "supabase functions deploy",
+    "deploy:vercel": "vercel --prod",
+    "setup": "npm run supabase:reset && npm run supabase:functions:deploy",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linting configured'",
+    "format": "echo 'No formatting configured'"
+  },
+  "keywords": [
+    "luxbyte",
+    "shopeg",
+    "merchant",
+    "registration",
+    "supabase",
+    "vercel",
+    "typescript",
+    "vanilla-js"
+  ],
+  "author": "Luxbyte LLC",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luxbyte/merchant-portal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luxbyte/merchant-portal/issues"
+  },
+  "homepage": "https://luxbyte.vercel.app"
+}

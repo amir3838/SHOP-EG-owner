@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة تسجيل التجار - Luxbyte LLC</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <svg width="40" height="40" viewBox="0 0 200 200" class="logo">
+                    <polygon points="20,40 60,40 80,60 40,60" fill="#e53935"/>
+                    <polygon points="60,40 120,40 120,100 100,80 80,80 80,60 60,60" fill="#e53935"/>
+                    <polygon points="40,60 80,60 80,80 100,80 120,100 120,160 60,160 60,140 40,120" fill="#333"/>
+                    <polygon points="120,100 160,100 180,120 180,160 120,160" fill="#ffc107"/>
+                </svg>
+                <div class="brand-text">
+                    <h1>Luxbyte LLC</h1>
+                    <p>هنكبر مع بعض</p>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="btn-icon" aria-label="تغيير الوضع">
+                    <svg width="20" height="20" fill="currentColor" class="theme-icon">
+                        <circle cx="10" cy="10" r="3"/>
+                        <path d="M10 1L10 3M10 17L10 19M4.22 4.22L5.64 5.64M14.36 14.36L15.78 15.78M1 10L3 10M17 10L19 10M4.22 15.78L5.64 14.36M14.36 5.64L15.78 4.22"/>
+                    </svg>
+                </button>
+                <button id="auth-btn" class="btn-primary">تسجيل دخول</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>انضم إلى منصة SHOPEG</h2>
+                    <p class="hero-subtitle">بوابة تسجيل التجار للصيدليات والسوبرماركت والمطاعم</p>
+                    <div class="hero-features">
+                        <div class="feature">
+                            <svg width="24" height="24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span>خدمة عملاء متميزة</span>
+                        </div>
+                        <div class="feature">
+                            <svg width="24" height="24" fill="currentColor">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                            <span>نمو سريع ومضمون</span>
+                        </div>
+                        <div class="feature">
+                            <svg width="24" height="24" fill="currentColor">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>أمان وموثوقية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- نموذج تسجيل التجار -->
+        <div class="registration-section" id="registration-form" style="display: none;">
+            <div class="container">
+                <div class="form-container">
+                    <!-- شريط التقدم -->
+                    <div class="progress-bar">
+                        <div class="progress-step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">نوع النشاط</div>
+                        </div>
+                        <div class="progress-step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">البيانات العامة</div>
+                        </div>
+                        <div class="progress-step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">البيانات الخاصة</div>
+                        </div>
+                        <div class="progress-step" data-step="4">
+                            <div class="step-circle">4</div>
+                            <div class="step-label">المستندات</div>
+                        </div>
+                    </div>
+
+                    <form id="merchant-form" class="merchant-form">
+                        <!-- الخطوة 1: اختيار نوع النشاط -->
+                        <div class="form-step active" data-step="1">
+                            <h3>اختر نوع نشاطك التجاري</h3>
+                            <div class="business-types">
+                                <label class="business-type-card">
+                                    <input type="radio" name="business_type" value="pharmacy" required>
+                                    <div class="card-content">
+                                        <svg width="48" height="48" fill="currentColor" class="card-icon">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        <h4>صيدلية</h4>
+                                        <p>بيع الأدوية والمستحضرات الطبية</p>
+                                    </div>
+                                </label>
+                                <label class="business-type-card">
+                                    <input type="radio" name="business_type" value="supermarket" required>
+                                    <div class="card-content">
+                                        <svg width="48" height="48" fill="currentColor" class="card-icon">
+                                            <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7Z"/>
+                                        </svg>
+                                        <h4>سوبرماركت</h4>
+                                        <p>بيع المواد الغذائية والاستهلاكية</p>
+                                    </div>
+                                </label>
+                                <label class="business-type-card">
+                                    <input type="radio" name="business_type" value="restaurant" required>
+                                    <div class="card-content">
+                                        <svg width="48" height="48" fill="currentColor" class="card-icon">
+                                            <path d="M8.1 13.34L2 7.24V6A2 2 0 0 1 4 4H8A2 2 0 0 1 10 6V7.24L3.9 13.34C3.58 13.67 3 13.44 3 13V19A1 1 0 0 0 4 20H8A1 1 0 0 0 9 19V13C9 13.44 8.42 13.67 8.1 13.34Z"/>
+                                        </svg>
+                                        <h4>مطعم</h4>
+                                        <p>تحضير وتقديم الوجبات والمشروبات</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- الخطوة 2: البيانات العامة -->
+                        <div class="form-step" data-step="2">
+                            <h3>البيانات العامة للنشاط التجاري</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="business_name">اسم النشاط التجاري *</label>
+                                    <input type="text" id="business_name" name="business_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="crn">رقم السجل التجاري *</label>
+                                    <input type="text" id="crn" name="crn" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tax_id">رقم البطاقة الضريبية *</label>
+                                    <input type="text" id="tax_id" name="tax_id" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact_name">اسم الشخص المسؤول *</label>
+                                    <input type="text" id="contact_name" name="contact_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="national_id">الرقم القومي للمسؤول *</label>
+                                    <input type="text" id="national_id" name="national_id" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">رقم الهاتف *</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="governorate">المحافظة *</label>
+                                    <select id="governorate" name="governorate" required>
+                                        <option value="">اختر المحافظة</option>
+                                        <option value="القاهرة">القاهرة</option>
+                                        <option value="الجيزة">الجيزة</option>
+                                        <option value="الإسكندرية">الإسكندرية</option>
+                                        <option value="الدقهلية">الدقهلية</option>
+                                        <option value="الشرقية">الشرقية</option>
+                                        <option value="القليوبية">القليوبية</option>
+                                        <option value="كفر الشيخ">كفر الشيخ</option>
+                                        <option value="الغربية">الغربية</option>
+                                        <option value="المنوفية">المنوفية</option>
+                                        <option value="البحيرة">البحيرة</option>
+                                        <option value="الإسماعيلية">الإسماعيلية</option>
+                                        <option value="بورسعيد">بورسعيد</option>
+                                        <option value="السويس">السويس</option>
+                                        <option value="دمياط">دمياط</option>
+                                        <option value="المنيا">المنيا</option>
+                                        <option value="أسيوط">أسيوط</option>
+                                        <option value="سوهاج">سوهاج</option>
+                                        <option value="قنا">قنا</option>
+                                        <option value="أسوان">أسوان</option>
+                                        <option value="الأقصر">الأقصر</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">المدينة *</label>
+                                    <input type="text" id="city" name="city" required>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="address">العنوان التفصيلي *</label>
+                                    <textarea id="address" name="address" rows="3" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- الخطوة 3: البيانات الخاصة -->
+                        <div class="form-step" data-step="3">
+                            <h3>البيانات الخاصة بنوع النشاط</h3>
+                            
+                            <!-- بيانات الصيدلية -->
+                            <div class="specialty-fields pharmacy-fields" style="display: none;">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="pharmacy_license">رقم ترخيص الصيدلية</label>
+                                        <input type="text" id="pharmacy_license" name="pharmacy_license">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pharmacist_name">اسم الصيدلي المسؤول</label>
+                                        <input type="text" id="pharmacist_name" name="pharmacist_name">
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="pharmacy_hours">مواعيد العمل</label>
+                                        <input type="text" id="pharmacy_hours" name="pharmacy_hours" placeholder="مثال: من 8 صباحاً إلى 12 منتصف الليل">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- بيانات السوبرماركت -->
+                            <div class="specialty-fields supermarket-fields" style="display: none;">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="store_area">مساحة المتجر التقريبية (متر مربع)</label>
+                                        <input type="number" id="store_area" name="store_area">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="store_type">نوع المتجر</label>
+                                        <select id="store_type" name="store_type">
+                                            <option value="">اختر النوع</option>
+                                            <option value="independent">متجر مستقل</option>
+                                            <option value="chain">جزء من سلسلة</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="supermarket_hours">مواعيد العمل</label>
+                                        <input type="text" id="supermarket_hours" name="supermarket_hours" placeholder="مثال: يومياً من 9 صباحاً إلى 11 مساءً">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- بيانات المطعم -->
+                            <div class="specialty-fields restaurant-fields" style="display: none;">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="cuisine_type">نوع المطبخ</label>
+                                        <select id="cuisine_type" name="cuisine_type">
+                                            <option value="">اختر نوع المطبخ</option>
+                                            <option value="egyptian">مصري</option>
+                                            <option value="oriental">شرقي</option>
+                                            <option value="western">غربي</option>
+                                            <option value="seafood">مأكولات بحرية</option>
+                                            <option value="fast-food">وجبات سريعة</option>
+                                            <option value="mixed">متنوع</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="health_grade">درجة التجهيز الصحي</label>
+                                        <select id="health_grade" name="health_grade">
+                                            <option value="">اختر الدرجة</option>
+                                            <option value="A">ممتاز (A)</option>
+                                            <option value="B">جيد جداً (B)</option>
+                                            <option value="C">جيد (C)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="restaurant_hours">مواعيد العمل</label>
+                                        <input type="text" id="restaurant_hours" name="restaurant_hours" placeholder="مثال: يومياً من 12 ظهراً إلى 12 منتصف الليل">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- الخطوة 4: رفع المستندات -->
+                        <div class="form-step" data-step="4">
+                            <h3>رفع المستندات المطلوبة</h3>
+                            <p class="step-description">يرجى رفع المستندات التالية بصيغة PDF أو JPG أو PNG (حد أقصى 10 ميجابايت لكل ملف)</p>
+                            
+                            <div class="documents-grid">
+                                <div class="document-upload">
+                                    <label for="crn_document">السجل التجاري *</label>
+                                    <div class="file-upload-area" data-target="crn_document">
+                                        <svg width="48" height="48" fill="currentColor" class="upload-icon">
+                                            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                                        </svg>
+                                        <p>اسحب الملف هنا أو انقر للاختيار</p>
+                                        <input type="file" id="crn_document" name="crn_document" accept=".pdf,.jpg,.jpeg,.png" required hidden>
+                                    </div>
+                                    <div class="file-info" style="display: none;"></div>
+                                </div>
+
+                                <div class="document-upload">
+                                    <label for="tax_document">البطاقة الضريبية *</label>
+                                    <div class="file-upload-area" data-target="tax_document">
+                                        <svg width="48" height="48" fill="currentColor" class="upload-icon">
+                                            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                                        </svg>
+                                        <p>اسحب الملف هنا أو انقر للاختيار</p>
+                                        <input type="file" id="tax_document" name="tax_document" accept=".pdf,.jpg,.jpeg,.png" required hidden>
+                                    </div>
+                                    <div class="file-info" style="display: none;"></div>
+                                </div>
+
+                                <div class="document-upload">
+                                    <label for="id_document">بطاقة الهوية للمسؤول *</label>
+                                    <div class="file-upload-area" data-target="id_document">
+                                        <svg width="48" height="48" fill="currentColor" class="upload-icon">
+                                            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                                        </svg>
+                                        <p>اسحب الملف هنا أو انقر للاختيار</p>
+                                        <input type="file" id="id_document" name="id_document" accept=".pdf,.jpg,.jpeg,.png" required hidden>
+                                    </div>
+                                    <div class="file-info" style="display: none;"></div>
+                                </div>
+
+                                <div class="document-upload">
+                                    <label for="license_document">ترخيص النشاط</label>
+                                    <div class="file-upload-area" data-target="license_document">
+                                        <svg width="48" height="48" fill="currentColor" class="upload-icon">
+                                            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                                        </svg>
+                                        <p>اسحب الملف هنا أو انقر للاختيار</p>
+                                        <input type="file" id="license_document" name="license_document" accept=".pdf,.jpg,.jpeg,.png" hidden>
+                                    </div>
+                                    <div class="file-info" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- أزرار التنقل -->
+                        <div class="form-actions">
+                            <button type="button" id="prev-btn" class="btn-secondary" style="display: none;">السابق</button>
+                            <button type="button" id="next-btn" class="btn-primary">التالي</button>
+                            <button type="submit" id="submit-btn" class="btn-success" style="display: none;">إرسال الطلب</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم المعلومات -->
+        <div class="info-section">
+            <div class="container">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>صيدليات</h3>
+                        <p>انضم إلى شبكة الصيدليات الرائدة في مصر واحصل على عملاء جدد</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>سوبرماركت</h3>
+                        <p>وسّع قاعدة عملائك وزد مبيعاتك مع منصة التسوق الإلكتروني</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>مطاعم</h3>
+                        <p>اعرض قائمة طعامك واستقبل طلبات توصيل من جميع أنحاء المدينة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <svg width="32" height="32" viewBox="0 0 200 200" class="logo">
+                        <polygon points="20,40 60,40 80,60 40,60" fill="#e53935"/>
+                        <polygon points="60,40 120,40 120,100 100,80 80,80 80,60 60,60" fill="#e53935"/>
+                        <polygon points="40,60 80,60 80,80 100,80 120,100 120,160 60,160 60,140 40,120" fill="#333"/>
+                        <polygon points="120,100 160,100 180,120 180,160 120,160" fill="#ffc107"/>
+                    </svg>
+                    <div>
+                        <h4>Luxbyte LLC</h4>
+                        <p>هنكبر مع بعض</p>
+                    </div>
+                </div>
+                <div class="footer-info">
+                    <p>© 2025 Luxbyte LLC. جميع الحقوق محفوظة</p>
+                    <p>42 شارع البحر، شبراتون، القاهرة - الدور الخامس</p>
+                    <p>خدمة العملاء: +201148709609</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- مودال تسجيل الدخول -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>تسجيل الدخول</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="auth-form">
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <button type="submit" class="btn-primary">إرسال رابط التسجيل</button>
+                </form>
+                <p class="auth-note">سيتم إرسال رابط تسجيل الدخول إلى بريدك الإلكتروني</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- منطقة الإشعارات -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- تحميل السكريبتات -->
+    <script src="/js/auth.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
